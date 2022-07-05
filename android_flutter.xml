@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite" verbose="1" >
+    <listeners>
+        <listener class-name="com.qa.listeners.TestListener"/>
+    </listeners>
+
+    <parameter name="emulator" value="true" />
+    <parameter name="systemPort" value="10000" />
+    <parameter name="chromeDriverPort" value="11000" />
+    <parameter name="platformName" value="Android" />
+    <parameter name="env" value="Android_Flutter" />
+
+    <!--    uncomment for CI />-->
+<!--    <parameter name="deviceName" value="test" />-->
+    <!--    uncomment for local />-->
+        <parameter name="deviceName" value="Nexus_6_API_29" />
+
+    <!--    <parameter name="udid" value="emulator-5554" />-->
+
+
+    <test name="tests.Android_Flutter">
+
+        <classes>
+<!--                        <class name="com.qa.tests.HomePageTest"></class>-->
+<!--                        <class name="com.qa.tests.PreviewPageTest"></class>-->
+            <class name="com.qa.tests.InRoom.InRoomTest"></class>
+        </classes>
+    </test>
+</suite>
