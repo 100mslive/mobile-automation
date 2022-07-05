@@ -1,5 +1,0 @@
-2022-07-05 02:41:55:609 [Appium] Welcome to Appium v1.22.0
-2022-07-05 02:41:55:610 [Appium] Non-default server args:
-2022-07-05 02:41:55:610 [Appium]   sessionOverride: true
-2022-07-05 02:41:55:610 [Appium]   logFile: /Users/ronitroy/IdeaProjects/mobile-automation/ServerLogs/server.log
-2022-07-05 02:41:55:631 [HTTP] Could not start REST http interface listener. The requested port may already be in use. Please make sure there is no other instance of this server running already.
