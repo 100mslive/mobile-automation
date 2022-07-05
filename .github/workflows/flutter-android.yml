@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Appium CI
+name: mobile-automation Appium CI
 
 on:
   workflow_dispatch:
@@ -20,9 +20,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-#     defaults:
-#       run:
-#         working-directory: ./test/Flutter_100ms_appium
     strategy:
       matrix: 
         api-level: [29]
@@ -56,44 +53,12 @@ jobs:
         target: ${{ matrix.target }}
         arch: x86_64
         profile: Nexus 6
+        script: mvn clean test -Dsurefire.suiteXmlFiles=android_flutter.xml
 #         force-avd-creation: false
 #         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -no-boot-anim none
-        script: mvn test
-        working-directory: ./test/Flutter_100ms_appium
-#         script: mvn clean run -Pandroid
+#         script: mvn test
+#         script: mvn -B package --file pom.xml
 
-  
-#     - name: Build with Maven
-#       run: mvn -B package --file pom.xml
-
-#     - name: Allure
-#     - run: npm run allure:generate
-
-#     - name: Allure
-#     - uses: actions/upload-artifact@master
-#       with:
-#         name: allure-results
-#         path: allure-results
-#         retention-days: 20
-
-#     - name: Get Allure history
-#       uses: actions/checkout@v2
-#       if: always()
-#         continue-on-error:true
-#       with:
-#           ref: gh-pages
-#           path: gh-pages
-
-#     - name: Test marketplace action
-#       uses: simple-elf/allure-report-action@master
-#       if: always()
-#       id: allure-report
-#       with:
-#           allure_results: allure-results
-#           gh_pages: gh-pages
-#           allure_report: allure-report
-#           allure_history: allure-history
-#           keep_reports: 20
 
 #     - name: Deploy report to Github Pages
 #       if: always()
