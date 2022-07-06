@@ -24,7 +24,7 @@ public class ActionUtils extends BasePO {
 //	  WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(e));
     }
@@ -32,7 +32,7 @@ public class ActionUtils extends BasePO {
     public void waitForVisibility(WebElement e){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(e));
     }
