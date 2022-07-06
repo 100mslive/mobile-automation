@@ -34,6 +34,7 @@ public class MeetingRoom extends PreviewPage implements IMeetingRoom {
         else if(cam.equalsIgnoreCase("off") && mic.equalsIgnoreCase("off"))
         {click(micBtn, "micBtn"); click(camBtn,"camBtn");}
 
+        Thread.sleep(5000);
         click(joinNowBtn,"joinNowBtn");
 
     }
