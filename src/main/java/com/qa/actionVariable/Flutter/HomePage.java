@@ -36,7 +36,7 @@ public class HomePage extends ActionUtils implements IHomePage {
     public void enter_name_join(String participantName) throws InterruptedException {
         assertTrue(joinMeetingBtn.isDisplayed(),"joinMeetingBtn","isDisplayed");
         click(joinMeetingBtn, "joinMeetingBtn");
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         assertTrue(participantNameField.isDisplayed(),"participantNameField","isDisplayed");
         sendKeys(participantNameField, participantName, "Participant name- " + participantName);
 
