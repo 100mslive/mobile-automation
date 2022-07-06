@@ -23,8 +23,8 @@ public class ActionUtils extends BasePO {
     public static void waitForVisibility(MobileElement e) {
 //	  WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
-                .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofSeconds(15))
+                .withTimeout(Duration.ofSeconds(30L))
+                .pollingEvery(Duration.ofSeconds(1L))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(e));
     }
