@@ -27,16 +27,16 @@ public class HomePage extends ActionUtils implements IHomePage {
 
     public void put_meeting_url(String meetingUrl){
         assertTrue(meetingUrlField.isDisplayed(),"meetingUrlField","isDisplayed");
-//        sendKeys(meetingUrlField, meetingUrl, "login with " + meetingUrl);
         click(meetingUrlField, "meetingUrlField");
 
         sendKeys(meetingUrlField, meetingUrl, "login with " + meetingUrl);
         ActionUtils.default_back();
     }
 
-    public void enter_name_join(String participantName) {
-        assertTrue(joinMeetingBtn.isDisplayed(),"meetingUrlField","isDisplayed");
+    public void enter_name_join(String participantName) throws InterruptedException {
+        assertTrue(joinMeetingBtn.isDisplayed(),"joinMeetingBtn","isDisplayed");
         click(joinMeetingBtn, "joinMeetingBtn");
+        Thread.sleep(2000);
         assertTrue(participantNameField.isDisplayed(),"participantNameField","isDisplayed");
         sendKeys(participantNameField, participantName, "Participant name- " + participantName);
 
