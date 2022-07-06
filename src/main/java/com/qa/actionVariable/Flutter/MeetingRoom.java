@@ -40,7 +40,8 @@ public class MeetingRoom extends PreviewPage implements IMeetingRoom {
         {click(micBtn, "micBtn"); click(camBtn,"camBtn");}
 
         Thread.sleep(5000);
-        click(joinNowBtn,"joinNowBtn");
+//        click(joinNowBtn,"joinNowBtn");
+        click_joinNowBtn();
         assertTrue(leave.isDisplayed(),"leave","isDisplayed");
 
     }

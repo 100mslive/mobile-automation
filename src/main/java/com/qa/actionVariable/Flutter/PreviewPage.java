@@ -53,8 +53,8 @@ public class PreviewPage extends HomePage implements IPreviewPage {
         ActionUtils.click(joinNowBtn, "joinNowBtn");
     }
     public void click_backBtn() {
-        ActionUtils.assertTrue(joinNowBtn.isDisplayed(),"joinNowBtn","isDisplayed");
-        ActionUtils.click(joinNowBtn, "joinNowBtn");
+        ActionUtils.assertTrue(backBtn.isDisplayed(),"backBtn","isDisplayed");
+        ActionUtils.click(backBtn, "backBtn");
     }
     public void check_networkBar() {
         ActionUtils.assertTrue(networkBar.isDisplayed(),"joinNowBtn","isDisplayed");
