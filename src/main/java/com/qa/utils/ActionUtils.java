@@ -24,7 +24,7 @@ public class ActionUtils extends BasePO {
 //	  WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofSeconds(5))
+                .pollingEvery(Duration.ofSeconds(10))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(e));
     }
