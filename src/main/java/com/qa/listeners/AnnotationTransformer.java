@@ -13,11 +13,11 @@ public class AnnotationTransformer implements IAnnotationTransformer {
     public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
         annotation.setRetryAnalyzer(Retry.class);
     }
-
-    public class Retry implements IRetryAnalyzer {
+}
+class Retry implements IRetryAnalyzer {
 
         private int count = 0;
-        private int maxTry = 3;
+        private static int maxTry = 3;
 
         @Override
         public boolean retry(ITestResult iTestResult) {
@@ -34,4 +34,4 @@ public class AnnotationTransformer implements IAnnotationTransformer {
             }
             return false;
         }
-}}
+}
