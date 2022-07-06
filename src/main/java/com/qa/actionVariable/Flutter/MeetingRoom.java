@@ -11,6 +11,9 @@ public class MeetingRoom extends PreviewPage implements IMeetingRoom {
     @AndroidFindBy(accessibility =  "Ronit Roy (You)" )
     public static MobileElement myTile;
 
+    @AndroidFindBy(accessibility =  "Leave Or End" )
+    public static MobileElement leave;
+
     @iOSXCUITFindBy(accessibility = "Back")
     @AndroidFindBy(accessibility =  "Ronit New Name (You)" )
     public static MobileElement myTile_nameChange;
@@ -36,6 +39,7 @@ public class MeetingRoom extends PreviewPage implements IMeetingRoom {
 
         Thread.sleep(5000);
         click(joinNowBtn,"joinNowBtn");
+        assertTrue(leave.isDisplayed(),"leave","isDisplayed");
 
     }
 
