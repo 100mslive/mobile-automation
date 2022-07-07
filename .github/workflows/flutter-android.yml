@@ -6,16 +6,30 @@ name: Appium CI
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: "Log level"
+      platform:
+        description: 'Select OS-platform'
         required: true
-        default: "warning"
-  schedule:
-    - cron: "0 1 * * *"
+        default: 'android_flutter'
+#   schedule:
+    # android_flutter
+#     - cron: '0 9 * * *'
+    # android_native
+#     - cron: '10 9 * * *'
+    # android_rn
+#     - cron: '20 9 * * *'
+    # ios_flutter
+#     - cron: '30 9 * * *'
+    # ios_native
+#     - cron: '40 9 * * *'
+    # ios_rn
+#     - cron: '50 9 * * *'
+    
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  repository_dispatch:
+    types: [automation]
 
 jobs:
   build:
@@ -26,34 +40,71 @@ jobs:
         target: [default]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 16
-      uses: actions/setup-java@v3.2.0
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3.1.1
-      with:
-        node-version: '11'
-    
-    - name: Install and Run Appium Server
-      run: |
-          npm install -g appium@v1.22.2
-          appium -v
-          appium &>/dev/null &
-          ls
-          
-    - name: Android Emulator Runner
-      uses: ReactiveCircus/android-emulator-runner@v2.23.0
-      with:
-        api-level: ${{ matrix.api-level }}
-        target: ${{ matrix.target }}
-        arch: x86_64
-        profile: Nexus 6
-        script: mvn clean test -Dsurefire.suiteXmlFiles=android_flutter.xml
+      # Figure out the platform where test needs to be run
+      - name: Input from workflow dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "PLATFORM=${{ github.event.inputs.platform }}" >> $GITHUB_ENV
+
+      - name: Test on QA-IN when push
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+        run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
+
+      - name: (From Cron) QA-IN
+        if: github.event.schedule == '0 9 * * *'
+        run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
+        
+      - name: (From Cron) QA-IN
+        if: github.event.schedule == '10 9 * * *'
+        run: echo "PLATFORM=android_native" >> $GITHUB_ENV
+
+      - name: (From Cron) QA-US
+        if: github.event.schedule == '20 9 * * *'
+        run: echo "PLATFORM=android_rn" >> $GITHUB_ENV
+
+      - name: (From Cron) PROD-IN
+        if: github.event.schedule == '30 9 * * *'
+        run: echo "PLATFORM=ios_flutter" >> $GITHUB_ENV
+
+      - name: (From Cron) PROD-US
+        if: github.event.schedule == '40 9 * * *'
+        run: echo "PLATFORM=ios_native" >> $GITHUB_ENV
+
+      - name: (From Cron) PROD-EU
+        if: github.event.schedule == '50 9 * * *'
+        run: echo "PLATFORM=ios_rn" >> $GITHUB_ENV
+
+      - name: print selected region
+        run: echo "selected platform for test = ${{ env.PLATFORM }}"
+
+    # Run test in the above selected region
+      - uses: actions/checkout@v3
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3.2.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: '11'
+
+      - name: Install and Run Appium Server
+        run: |
+            npm install -g appium@v1.22.2
+            appium -v
+            appium &>/dev/null &
+            ls
+
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.23.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: mvn clean test -Dsurefire.suiteXmlFiles=${{ env.PLATFORM }}.xml
 #         force-avd-creation: false
 #         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -no-boot-anim none
 #         script: mvn test
