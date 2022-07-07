@@ -17,12 +17,6 @@ on:
 #     - cron: '10 9 * * *'
     # android_rn
 #     - cron: '20 9 * * *'
-    # ios_flutter
-#     - cron: '30 9 * * *'
-    # ios_native
-#     - cron: '40 9 * * *'
-    # ios_rn
-#     - cron: '50 9 * * *'
     
   push:
     branches: [ main ]
@@ -45,35 +39,23 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "PLATFORM=${{ github.event.inputs.platform }}" >> $GITHUB_ENV
 
-      - name: Test on QA-IN when push
+      - name: Test on ANDROID-FLUTTER when push
         if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
         run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
 
-      - name: (From Cron) QA-IN
+      - name: (From Cron) ANDROID-FLUTTER
         if: github.event.schedule == '0 9 * * *'
         run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
         
-      - name: (From Cron) QA-IN
+      - name: (From Cron) ANDROID-NATIVE
         if: github.event.schedule == '10 9 * * *'
         run: echo "PLATFORM=android_native" >> $GITHUB_ENV
 
-      - name: (From Cron) QA-US
+      - name: (From Cron) ANDROID-RN
         if: github.event.schedule == '20 9 * * *'
         run: echo "PLATFORM=android_rn" >> $GITHUB_ENV
 
-      - name: (From Cron) PROD-IN
-        if: github.event.schedule == '30 9 * * *'
-        run: echo "PLATFORM=ios_flutter" >> $GITHUB_ENV
-
-      - name: (From Cron) PROD-US
-        if: github.event.schedule == '40 9 * * *'
-        run: echo "PLATFORM=ios_native" >> $GITHUB_ENV
-
-      - name: (From Cron) PROD-EU
-        if: github.event.schedule == '50 9 * * *'
-        run: echo "PLATFORM=ios_rn" >> $GITHUB_ENV
-
-      - name: print selected region
+      - name: print selected platform
         run: echo "selected platform for test = ${{ env.PLATFORM }}"
 
     # Run test in the above selected region
