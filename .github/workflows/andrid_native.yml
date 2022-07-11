@@ -1,4 +1,4 @@
-name: Appium CI
+name: Andrid Native
 
 on:
   workflow_dispatch:
