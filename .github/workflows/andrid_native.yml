@@ -41,6 +41,8 @@ jobs:
           workflow: build-app-workflow.yml
           name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
+
+          run: pwd
         
 #       - uses: actions/checkout@master
 #       - name: Download artifact from build
@@ -52,26 +54,27 @@ jobs:
 # #           rename: new-artifact-name    
 #           wait_seconds: 60
 
-      - name: Wait for artifact to succeed
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-build
-        with:
-          token: "${{ secrets.ANDRID_NATIVE_TOKEN }}"
-          checkName: artifact
+#       - name: Wait for artifact to succeed
+#         uses: fountainhead/action-wait-for-check@v1.0.0
+#         id: wait-for-build
+#         with:
+#           token: "${{ secrets.ANDRID_NATIVE_TOKEN }}"
+#           checkName: artifact
 
-      - uses: actions/checkout@master
-      - name: Self test
-        id: selftest
+#       - uses: actions/checkout@master
+#       - name: Self test
+#         id: selftest
 
-        # Put your action repo here
-        uses: ./
-        with:
-          artifact_name: 100ms-app-debug.apk
-          token: "${{ secrets.ANDRID_NATIVE_TOKEN }}"
-          rename: foobar
+#         # Put your action repo here
+#         uses: ./
+#         with:
+#           artifact_name: 100ms-app-debug.apk
+#           token: "${{ secrets.ANDRID_NATIVE_TOKEN }}"
+#           rename: foobar
 
-      - name: Check outputs
-        run: |
-          test "${{ steps.selftest.outputs.success }}" == "Artifact downloaded: 100ms-app-debug.apk"
-          test -f foobar
-    
+#       - name: Check outputs
+#         run: |
+#           test "${{ steps.selftest.outputs.success }}" == "Artifact downloaded: 100ms-app-debug.apk"
+#           test -f foobar
+  
+
