@@ -56,12 +56,12 @@ jobs:
 # #           rename: new-artifact-name    
 #           wait_seconds: 60
 
-      - name: Wait for artifact to succeed
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-build
-        with:
-          token: "${{ secrets.MOBILE_AUTO }}"
-          checkName: artifact
+#       - name: Wait for artifact to succeed
+#         uses: fountainhead/action-wait-for-check@v1.0.0
+#         id: wait-for-build
+#         with:
+#           token: "${{ secrets.MOBILE_AUTO }}"
+#           checkName: artifact
 
       - uses: actions/checkout@master
       - name: Self test
@@ -70,9 +70,9 @@ jobs:
         # Put your action repo here
         uses: ./
         with:
-          artifact_name: 100ms-app-debug.apk
+          artifact_name: app-debug.apk
           token: "${{ secrets.MOBILE_AUTO }}"
-          rename: android_native
+          rename: android_native.apk
 
       - name: Check outputs
         run: |
