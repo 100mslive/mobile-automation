@@ -34,14 +34,14 @@ jobs:
         target: [default]
 
     steps:
-      # Figure out the platform where test needs to be run
+#       # Figure out the platform where test needs to be run
       - name: Input from workflow dispatch
         if: github.event_name == 'workflow_dispatch'
         run: echo "PLATFORM=${{ github.event.inputs.platform }}" >> $GITHUB_ENV
 
-      - name: Test on ANDROID-FLUTTER when push
-        if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
-        run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
+#       - name: Test on ANDROID-FLUTTER when push
+#         if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+#         run: echo "PLATFORM=android_flutter" >> $GITHUB_ENV
 
       - name: (From Cron) ANDROID-FLUTTER
         if: github.event.schedule == '0 9 * * *'
