@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 'Select OS-platform'
+        description: 'Running on Andrid Native'
         required: true
         default: 'android_native'
 #   schedule:
@@ -27,13 +27,6 @@ jobs:
         target: [default]
 
     steps:
-      - name: (From Cron) ANDROID-NATIVE
-        if: github.event.schedule == '10 9 * * *'
-        run: echo "PLATFORM=android_native" >> $GITHUB_ENV
-        
-      - name: print selected platform
-        run: echo "selected platform for test = ${{ env.PLATFORM }}"
-
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -42,7 +35,7 @@ jobs:
           name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
           
-      - name: run
+      - name: Project Location
         run: pwd
         
       # Run test in the above selected region
@@ -72,6 +65,6 @@ jobs:
           target: ${{ matrix.target }}
           arch: x86_64
           profile: Nexus 6
-          script: mvn clean test -Dsurefire.suiteXmlFiles=${{ env.PLATFORM }}.xml
+          script: mvn clean test -Dsurefire.suiteXmlFiles=android_native.xml
   
 
