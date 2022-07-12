@@ -6,17 +6,17 @@ on:
       platform:
         description: 'Select OS-platform'
         required: true
-        default: 'android_flutter'
+        default: 'android_native'
 #   schedule:
     # android_native
 #     - cron: '10 9 * * *'
     
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  repository_dispatch:
-    types: [automation]
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   repository_dispatch:
+#     types: [automation]
 
 jobs:
   build:
@@ -41,6 +41,7 @@ jobs:
           workflow: build-app-workflow.yml
           name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
+          rename: android_native 
           
       - name: run
         run: pwd
