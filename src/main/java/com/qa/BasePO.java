@@ -268,9 +268,9 @@ public class BasePO {
 					}
 					desiredCapabilities.setCapability("systemPort", systemPort);
 					desiredCapabilities.setCapability("chromeDriverPort", chromeDriverPort);
-					androidAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-							+ File.separator + "resources" + File.separator + "app" + File.separator + "Android_Native.apk";
-//				String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
+// 					androidAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+// 							+ File.separator + "resources" + File.separator + "app" + File.separator + "Android_Native.apk";
+					androidAppUrl = System.getProperty("user.dir") + "app-debug.apk"; //for CI
 					utils.log().info("appUrl is" + androidAppUrl);
 					desiredCapabilities.setCapability("app", androidAppUrl);
 					desiredCapabilities.setCapability("noReset", "true");
