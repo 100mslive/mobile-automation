@@ -12,9 +12,9 @@
     <parameter name="env" value="Android_Native" />
 
     <!--    uncomment for CI />-->
-<!--    <parameter name="deviceName" value="test" />-->
+    <parameter name="deviceName" value="test" />
     <!--    uncomment for local />-->
-        <parameter name="deviceName" value="Nexus_6_API_29" />
+<!--        <parameter name="deviceName" value="Nexus_6_API_29" />-->
 
     <!--    <parameter name="udid" value="emulator-5554" />-->
 
