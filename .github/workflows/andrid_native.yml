@@ -41,8 +41,9 @@ jobs:
           workflow: build-app-workflow.yml
           name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
-
-          run: pwd
+          
+      - name: run
+        run: pwd
         
 #       - uses: actions/checkout@master
 #       - name: Download artifact from build
