@@ -18,12 +18,12 @@ on:
     # android_rn
 #     - cron: '20 9 * * *'
     
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  repository_dispatch:
-    types: [automation]
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   repository_dispatch:
+#     types: [automation]
 
 jobs:
   build:
