@@ -41,42 +41,37 @@ jobs:
           workflow: build-app-workflow.yml
           name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
-          rename: android_native 
           
       - name: run
         run: pwd
         
-#       - uses: actions/checkout@master
-#       - name: Download artifact from build
-#         uses: bettermarks/action-artifact-download@0.1.0
-#         with:
-#           repo: 100mslive/android-build-dogfooding
-#           token: ${{ secrets.ANDRID_NATIVE_TOKEN }}
-#           artifact_name: 100ms-app-debug.apk
-# #           rename: new-artifact-name    
-#           wait_seconds: 60
-
-#       - name: Wait for artifact to succeed
-#         uses: fountainhead/action-wait-for-check@v1.0.0
-#         id: wait-for-build
-#         with:
-#           token: "${{ secrets.MOBILE_AUTO }}"
-#           checkName: artifact
-
-      - uses: actions/checkout@master
-      - name: Self test
-        id: selftest
-
-        # Put your action repo here
-        uses: ./
+      # Run test in the above selected region
+      - uses: actions/checkout@v3
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3.2.0
         with:
-          artifact_name: app-debug.apk
-          token: "${{ secrets.MOBILE_AUTO }}"
-          rename: android_native.apk
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
 
-      - name: Check outputs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: '11'
+
+      - name: Install and Run Appium Server
         run: |
-          test "${{ steps.selftest.outputs.success }}" == "Artifact downloaded: 100ms-app-debug.apk"
-          test -f android_native
+            npm install -g appium@v1.22.2
+            appium -v
+            appium &>/dev/null &
+            ls
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.23.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: mvn clean test -Dsurefire.suiteXmlFiles=${{ env.PLATFORM }}.xml
   
 
