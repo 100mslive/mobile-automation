@@ -34,15 +34,23 @@ jobs:
       - name: print selected platform
         run: echo "selected platform for test = ${{ env.PLATFORM }}"
 
-      - uses: actions/checkout@master
-      - name: Download artifact from build
-        uses: bettermarks/action-artifact-download@0.1.0
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
+          github_token: ${{ secrets.ANDRID_NATIVE_TOKEN }}
+          workflow: Build.yml
+          name: 100ms-app-debug.apk
           repo: 100mslive/android-build-dogfooding
-          token: ${{ secrets.ANDRID_NATIVE_TOKEN }}
-          artifact_name: 100ms-app-debug.apk
-#           rename: new-artifact-name    
-          wait_seconds: 60
+        
+#       - uses: actions/checkout@master
+#       - name: Download artifact from build
+#         uses: bettermarks/action-artifact-download@0.1.0
+#         with:
+#           repo: 100mslive/android-build-dogfooding
+#           token: ${{ secrets.ANDRID_NATIVE_TOKEN }}
+#           artifact_name: 100ms-app-debug.apk
+# #           rename: new-artifact-name    
+#           wait_seconds: 60
 
       - name: Wait for artifact to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
