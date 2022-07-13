@@ -22,7 +22,7 @@ public class MeetingRoom extends PreviewPage implements IMeetingRoom {
     public void goto_meetingRoom_mic_cam(String meetingUrl, String name, String cam,String mic) throws InterruptedException {
         put_meeting_url(meetingUrl);
         enter_name_join(name);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         assertTrue(micBtn.isDisplayed(),"micBtn","isDisplayed");
         assertTrue(camBtn.isDisplayed(),"camBtn","isDisplayed");
         assertTrue(joinNowBtn.isDisplayed(),"joinNowBtn","isDisplayed");
