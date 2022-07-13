@@ -9,7 +9,7 @@ on:
       platform:
         description: 'Select OS-platform'
         required: true
-        default: 'android'
+        default: 'android_flutter'
 #   schedule:
     # android_flutter
 #     - cron: '0 9 * * *'
